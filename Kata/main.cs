@@ -7,9 +7,10 @@ namespace Kata
 
         static void Main(string[] args)
         {
-            var product = new Product("The Little Prince", 12345, 20.25);
-            product.DisplayPriceWithTax();
-            product.DisplayPriceWithTax(0.21);
+            var inventory = new ProductInventory();
+            inventory.AddProduct("The Little Prince", 12345, 20.25);
+            var product = inventory.GetProduct(12345);
+            product.CalculatePriceAfterDiscount(0.15);
         }
     }
 }
