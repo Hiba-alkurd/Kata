@@ -1,0 +1,2 @@
+# Kata
+Price Calculator
