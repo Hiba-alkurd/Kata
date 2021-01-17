@@ -12,6 +12,7 @@ namespace Kata
             var product = inventory.GetProduct(12345);
             product.UPCdiscount = 0.07;
             product.CalculatePriceAfterDiscount();
+            product.CalculatePricewithPrecedence(precedence.after, precedence.before);
         }
     }
 }

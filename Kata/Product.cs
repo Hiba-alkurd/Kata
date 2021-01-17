@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
+enum precedence
+{
+    after,
+    before
+}
 namespace Kata
 {
     class Product
@@ -49,6 +54,26 @@ namespace Kata
             return priceAfterDiscount;
 
         }
+        public double CalculatePricewithPrecedence(precedence uniDiscount, precedence upcDiscount)
+        {
+            double price = _price;
+            Console.WriteLine($"price before discount {price}");
+
+            if (uniDiscount == precedence.before) price -= price * Discount;
+            if (upcDiscount == precedence.before) price -= price * UPCdiscount;
+            Console.WriteLine($"price after discount {price}");
+            double totalTax = TaxRate* price;
+            Console.WriteLine($"price after discount {price}");
+            if (uniDiscount == precedence.after) price -= price * Discount;
+            if (upcDiscount == precedence.after) price -= price * UPCdiscount;
+            price += totalTax;
+            
+            Console.WriteLine($"price after discount {price}");
+
+            return price;
+
+        }
+
         public void DisplayPriceWithTax()
         {
             Console.WriteLine(CalculatePriceWithTax());
@@ -57,6 +82,7 @@ namespace Kata
         {
             Console.WriteLine(CalculatePriceAfterDiscount());
         }
+
 
 
 
