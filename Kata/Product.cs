@@ -10,13 +10,16 @@ namespace Kata
         public int UPC { get; set; }
         public double TaxRate { get; set; } = 0.2;
         public double Discount { get; set; } = 0.0;
+        public double UPCdiscount { get; set; } = 0.0;
+        
         private double _price;
 
-        public Product(string name, int upc, double price )
+        public Product(string name, int upc, double price, double dicount)
         {
             _price = price;
             Name = name;
             UPC = upc;
+            Discount = dicount;
        
         }
 
@@ -30,14 +33,14 @@ namespace Kata
             return Math.Round(_price * TaxRate, 2);
         }
 
-        public double CalculateDiscount(double discount)
+        public double CalculateDiscount()
         {
-            return Math.Round(_price * discount, 2); 
+            return Math.Round(_price * (Discount + UPCdiscount), 2); 
         }
 
         public double CalculatePriceAfterDiscount()
         {
-            var discountValue = CalculateDiscount(Discount);
+            var discountValue = CalculateDiscount();
             var priceAfterDiscount = Math.Round(_price - discountValue + CalculateTax(), 2);
 
             Console.WriteLine($"price {priceAfterDiscount}");
