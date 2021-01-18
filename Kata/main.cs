@@ -14,7 +14,7 @@ namespace Kata
             inventory.AddUPCDiscount(7, precedence.after, 12345);
             inventory.AddExpenses(ExpensesTypes.Packaging, MoneyRepresentation.Percentage, 1);
             inventory.AddExpenses(ExpensesTypes.Transport, MoneyRepresentation.Absolute, 2.2);
-
+            inventory.SetDicountCalculation(CalculationTypes.Multiplication);
             inventory.Report(12345);
         }
     }

@@ -23,7 +23,9 @@ namespace Kata
         Absolute
     }
 
-    class enums
+    enum CalculationTypes
     {
+        Addition,
+        Multiplication
     }
 }
