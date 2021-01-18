@@ -7,12 +7,11 @@ namespace Kata
 
         static void Main(string[] args)
         {
-            var inventory = new ProductInventory(0.15);
+            var inventory = new ProductInventory();
             inventory.AddProduct("The Little Prince", 12345, 20.25);
-            var product = inventory.GetProduct(12345);
-            product.UPCdiscount = 0.07;
-            product.CalculatePriceAfterDiscount();
-            product.CalculatePricewithPrecedence(precedence.after, precedence.before);
+            inventory.AddUniDiscount(15, precedence.after);
+            inventory.AddUPCDiscount(7, precedence.before, 12345);
+            inventory.Report(12345);
         }
     }
 }

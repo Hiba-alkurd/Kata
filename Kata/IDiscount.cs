@@ -6,6 +6,8 @@ namespace Kata
 {
     interface IDiscount
     {
-        void CalculatePriceWithDiscount(double price, double tax);
+        double GetDiscount(double price, double discount);
+        double GetBeforeDiscountedPrice(double price);
+        double GetAfterDiscountedPrice(double price);
     }
 }
