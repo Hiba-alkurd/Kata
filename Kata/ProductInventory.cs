@@ -12,9 +12,17 @@ namespace Kata
         Dictionary<ExpensesTypes, Expense> Expenses;
         UniversalDiscount universalDiscount;
         DiscountManager discountManager;
+        private double taxRate = 0.2;
+        public double GetTaxRate()
+        {
+            return taxRate;
+        }
+        public void SetTaxRate(double value)
+        {
+            taxRate = value / 100;
+        }
 
-        public double TaxRate { get; set; } = 0.2;
-
+        public Money Currency { get; set; } = Money.USD;
 
         public ProductInventory()
         {
@@ -59,10 +67,16 @@ namespace Kata
             discountManager.calculationTypes = calculation;
         }
 
+        public void AddCAP(double amount, MoneyRepresentation rep)
+        {
+            discountManager.CAP = amount;
+            discountManager.CAPrep = rep;
+        }
+
         public double CalculateTax(double price, Discount upc)
         {
             price -= discountManager.CalculateDiscountBeforeTax(price, upc, universalDiscount);
-            return TaxRate * price;
+            return GetTaxRate() * price;
         }
 
         public void Report(int upc)
@@ -74,13 +88,13 @@ namespace Kata
                 UPCDiscount = UPCdiscounts[upc];
             }
 
-            Console.WriteLine($"Cost = ${Math.Round(tem.Price, 2)}");
+            Console.WriteLine($"Cost = {Math.Round(tem.Price, 2)} {Currency}");
 
             double tax = Math.Round(CalculateTax(tem.Price, UPCDiscount), 2);
-            Console.WriteLine($"Tax = ${tax}");
+            Console.WriteLine($"Tax = {tax} {Currency}");
 
             double discounts = Math.Round(discountManager.CalculateDiscount(tem.Price, UPCDiscount, universalDiscount), 2) ;
-            if (discounts != 0) Console.WriteLine($"Discounts = ${discounts}");
+            if (discounts != 0) Console.WriteLine($"Discounts = {discounts} {Currency}");
 
             double total = tem.Price - discounts + tax;
             double expenseValue = 0.0;
@@ -96,10 +110,10 @@ namespace Kata
                     expenseValue = Math.Round(tem.Price * (expense.Value.Amount / 100), 2);
                 }
                 total += expenseValue;
-                Console.WriteLine($"{expense.Key} = ${expenseValue}");
+                Console.WriteLine($"{expense.Key} = {expenseValue} {Currency}");
             }
 
-            Console.WriteLine($"TOTAL = ${Math.Round(total, 2)}");
+            Console.WriteLine($"TOTAL = {Math.Round(total, 2)} {Currency}");
 
 
         }

@@ -28,4 +28,8 @@ namespace Kata
         Addition,
         Multiplication
     }
+    enum Money
+    {
+        USD, GBP, JPY
+    }
 }
