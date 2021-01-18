@@ -2,11 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 
-enum precedence
-{
-    after,
-    before
-}
 
 namespace Kata
 {
