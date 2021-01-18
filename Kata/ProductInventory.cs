@@ -88,13 +88,13 @@ namespace Kata
                 UPCDiscount = UPCdiscounts[upc];
             }
 
-            Console.WriteLine($"Cost = {Math.Round(tem.Price, 2)} {Currency}");
+            Console.WriteLine($"Cost = {RoundToString(tem.Price)} {Currency}");
 
-            double tax = Math.Round(CalculateTax(tem.Price, UPCDiscount), 2);
-            Console.WriteLine($"Tax = {tax} {Currency}");
+            double tax = CalculateTax(tem.Price, UPCDiscount);
+            Console.WriteLine($"Tax = {RoundToString(tax)} {Currency}");
 
-            double discounts = Math.Round(discountManager.CalculateDiscount(tem.Price, UPCDiscount, universalDiscount), 2) ;
-            if (discounts != 0) Console.WriteLine($"Discounts = {discounts} {Currency}");
+            double discounts = discountManager.CalculateDiscount(tem.Price, UPCDiscount, universalDiscount) ;
+            if (discounts != 0) Console.WriteLine($"Discounts = {RoundToString(discounts)} {Currency}");
 
             double total = tem.Price - discounts + tax;
             double expenseValue = 0.0;
@@ -103,19 +103,23 @@ namespace Kata
             {
                 if (expense.Value.MoneyRep == MoneyRepresentation.Absolute)
                 {
-                    expenseValue = Math.Round(expense.Value.Amount, 2);
+                    expenseValue = expense.Value.Amount;
                 }
                 else
                 {
-                    expenseValue = Math.Round(tem.Price * (expense.Value.Amount / 100), 2);
+                    expenseValue = tem.Price * (expense.Value.Amount / 100);
                 }
                 total += expenseValue;
-                Console.WriteLine($"{expense.Key} = {expenseValue} {Currency}");
+                Console.WriteLine($"{expense.Key} = {RoundToString(expenseValue)} {Currency}");
             }
 
-            Console.WriteLine($"TOTAL = {Math.Round(total, 2)} {Currency}");
+            Console.WriteLine($"TOTAL = {RoundToString(total)} {Currency}");
 
 
+        }
+        string RoundToString(double Num)
+        {
+            return Math.Round(Num, 2).ToString();
         }
 
     }

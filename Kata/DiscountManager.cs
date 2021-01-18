@@ -7,22 +7,22 @@ namespace Kata
     class DiscountManager
     {
         public CalculationTypes calculationTypes { get; set; }
-        public double CAP { get; set; } = 0.0;
+        public double CAP { get; set; } = 10000;
         public MoneyRepresentation CAPrep { get; set; }
         public DiscountManager(CalculationTypes calculationTypes = CalculationTypes.Addition)
         {
             this.calculationTypes = calculationTypes;
         }
 
-        public double CalculateCAB(double price)
+        public double CalculateCAP(double price)
         {
-            if (CAPrep == MoneyRepresentation.Absolute)
+            if (CAPrep == MoneyRepresentation.Percentage)
             {
-                return CAP;
+                return (CAP / 100) * price;
             }
             else
             {
-                return (CAP/100) * price;
+                return CAP;
             }
              
         }
@@ -32,7 +32,7 @@ namespace Kata
             double discount = CalculateDiscountBeforeTax(price, UPCDiscount, universalDiscount);
             price -= discount;
             discount += CalculateDiscountAfterTax(price, UPCDiscount, universalDiscount);
-            double CAPvalue = CalculateCAB(p);
+            double CAPvalue = CalculateCAP(p);
             return discount > CAPvalue ? CAPvalue : discount;
         }
 
